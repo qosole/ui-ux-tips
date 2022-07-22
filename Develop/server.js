@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const { clog } = require('./middleware/clog');
 const api = require('./routes/index.js');
+const diagnostics = require('./db/diagnostics.json');
 
 const PORT = process.env.port || 3001;
 
@@ -27,7 +28,12 @@ app.get('/feedback', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/pages/feedback.html'))
 );
 
-// Get Route for /api/diagnostics
+// GET Route for /api/diagnostics
+app.get('/api/diagnostics', (req, res) => {
+  res.json(diagnostics);
+})
+
+
 
 // GET Route for wildcard routes
 app.get('*', (req, res) => {
