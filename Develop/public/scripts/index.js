@@ -1,6 +1,7 @@
 const tipForm = document.getElementById('tip-form');
 const tipsContainer = document.getElementById('tip-container');
 const fbBtn = document.getElementById('feedback-btn');
+const currentTime = moment().format('X');
 
 fbBtn.addEventListener('click', (e) => {
   e.preventDefault();
@@ -124,10 +125,21 @@ const showErrors = (errorObj) => {
 // Helper function to send a POST request to the diagnostics route (/api/diagnostics)
 const submitDiagnostics = (submissionObj) => {
   // TODO: your code here
-  console.info(
-    '⚠️ Create the logic for the fetch POST request in scripts/index.js'
-  );
-  alert('Add your logic to scripts/index.js');
+  const tempObj = {
+    time: currentTime,
+    error_id: '123129381723908172313',
+    errors: submissionObj.errors
+  }
+  fetch('/api/diagnostics', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(tempObj)
+  })
+    .then(res => res.json())
+    .then(data => alert(data))
+    .catch(err => console.log(err));
 };
 
 // Function to handle when a user submits the feedback form
